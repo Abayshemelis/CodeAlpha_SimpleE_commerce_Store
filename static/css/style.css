@@ -802,7 +802,7 @@ body {
 
 .social-row .label {
     font-weight: 600;
-    min-width: 85px;    /* Keeps the "Chat" buttons perfectly vertically aligned */
+    min-width: 85px;   
 }
 
 .chat-btn {
@@ -821,7 +821,7 @@ body {
     color: #fff;
 }
 
-/* --- Form Layout Fix (Screenshot Repair) --- */
+
 .message-form {
     display: flex;
     flex-direction: column;
@@ -834,7 +834,7 @@ body {
 }
 
 .form-row input {
-    flex: 1;           /* Makes name and email share the top row equally */
+    flex: 1;          
 }
 
 .message-form input, 
