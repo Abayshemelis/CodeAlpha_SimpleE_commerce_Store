@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container" style="max-width: 1100px; margin: 0 auto; padding: 20px;">
+    <div class="product-detail-layout"
+        style="display: flex; gap: 50px; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); align-items: center; flex-wrap: wrap;">
+
+        <div class="detail-image" style="flex: 1; min-width: 300px;">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}"
+                style="width: 100%; max-width: 500px; border-radius: 12px; display: block; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            {% else %}
+            <img src="https://via.placeholder.com/500" alt="No image"
+                style="width: 100%; max-width: 500px; border-radius: 12px; display: block; margin: auto;">
+            {% endif %}
+        </div>
+
+        <div class="detail-info" style="flex: 1; min-width: 300px;">
+            <span style="color: #999; text-transform: uppercase; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px;">
+                Product Details
+            </span>
+            <h1 style="margin-top: 10px; font-size: 2.5rem; color: #2c3e50;">{{ product.name }}</h1>
+            <p class="price" style="font-size: 2rem; color: #27ae60; margin: 20px 0; font-weight: bold;">
+                ${{ product.price }}
+            </p>
+
+            <div style="border-top: 1px solid #eee; padding-top: 20px;">
+                <h4 style="color: #555; margin-bottom: 10px;">Description</h4>
+                <p style="line-height: 1.6; color: #666; font-size: 1.1rem;">
+                    {{ product.description|default:"No description available for this item." }}
+                </p>
+            </div>
+
+            <button class="btn add-to-cart" 
+                value="{{ product.id }}" 
+                data-name="{{ product.name }}"
+                style="width: 100%; padding: 18px; font-size: 1.2rem; margin-top: 30px; background: #2980b9; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.3s;">
+                Add to Cart
+            </button>
+
+            <p style="margin-top: 30px; text-align: center;">
+                <a href="{% url 'home' %}" style="color: #3498db; text-decoration: none; font-weight: 500;">
+                    &larr; Back to Shop
+                </a>
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

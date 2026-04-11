@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-page-wrapper">
+    <div class="auth-card shadow">
+        <h2 class="text-center mb-4">Create Your Account</h2>
+        
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="django-form-styled">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit" class="btn-auth-submit">Create Account</button>
+        </form>
+        
+        <p class="mt-4 text-center">
+            Already have an account? <a href="{% url 'login' %}" class="signup-link">Login here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

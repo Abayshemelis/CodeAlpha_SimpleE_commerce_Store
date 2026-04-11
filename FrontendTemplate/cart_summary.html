@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-summary-container">
+    <h2 class="cart-summary-title">Your Shopping Cart</h2>
+
+    {% if cart_products %}
+        {% for product in cart_products %}
+        <div class="cart-item-row">
+            <img src="{{ product.image.url }}" class="cart-item-img">
+            
+            <div class="cart-item-info">
+                <h3 class="cart-item-name">{{ product.name }}</h3>
+                <p class="cart-item-price">Price: ${{ product.price }}</p>
+                <p class="cart-item-quantity"><strong>Current Amount:</strong> {{ product.quantity }}</p>
+
+                <div class="cart-item-controls">
+                    <input type="number" 
+                           class="qty-input" 
+                           id="select{{ product.id }}" 
+                           value="{{ product.quantity }}" 
+                           min="1">
+                           
+                    <button type="button" data-index="{{ product.id }}" class="btn-update-qty update-cart-btn">
+                        Update
+                    </button>
+                </div>
+            </div>
+
+            <button type="button" data-index="{{ product.id }}" class="btn delete-product btn-remove-item">
+                Remove
+            </button>
+        </div>
+        {% endfor %}
+
+        <div class="cart-totals-box">
+            <h3 class="cart-total-text">Total: <span class="cart-total-amount">${{ totals }}</span></h3>
+            
+            <div class="cart-action-btns">
+                <a href="{% url 'home' %}" class="btn-continue-shopping">
+                    Continue Shopping
+                </a>
+                <a href="{% url 'checkout' %}" class="btn-proceed-checkout">
+                    Proceed to Checkout
+                </a>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="cart-empty-state">
+            <h3 class="cart-empty-title">Your cart is feeling a bit light...</h3>
+            <p>It looks like you haven't added anything yet.</p>
+            <a href="{% url 'home' %}" class="btn-start-shopping">
+                Start Shopping
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

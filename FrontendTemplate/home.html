@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="home-container">
+    
+    <div class="category-nav-bar">
+        <p class="category-nav-label">Browse by Category</p>
+        <div class="category-buttons-wrapper">
+            
+            <a href="{% url 'home' %}" 
+               class="category-btn {% if not current_category %}category-btn-active{% else %}category-btn-inactive{% endif %}">
+                All
+            </a>
+
+            {% for cat in categories %}
+                <a href="{% url 'home' %}?category={{ cat.slug }}" 
+                   class="category-btn {% if current_category == cat.slug %}category-btn-active{% else %}category-btn-inactive{% endif %}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <h2 class="home-title">
+        {% if current_category %} 
+            Items in "{{ current_category|title }}" 
+        {% else %} 
+            Featured Products 
+        {% endif %}
+    </h2>
+    
+    <div class="product-grid-layout">
+        
+        {% for product in products %}
+            <div class="product-item-card">
+                
+                <a href="{% url 'product_detail' product.pk %}">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-item-img">
+                    {% else %}
+                        <img src="https://via.placeholder.com/250" alt="No image" class="product-item-img">
+                    {% endif %}
+                </a>
+
+                <h3 class="product-item-name">{{ product.name }}</h3>
+                
+                <p class="product-item-cat">
+                    {{ product.category.name|default:"General" }}
+                </p>
+
+                <p class="product-item-price">
+                    ${{ product.price }}
+                </p>
+                
+                <div class="product-item-actions">
+                    <div class="qty-update-row" style="display: flex; gap: 5px; margin-bottom: 10px;">
+                        <input type="number" 
+                               id="qty-input-{{ product.id }}" 
+                               class="home-qty-input" 
+                               value="1" 
+                               min="1"
+                               style="width: 50px; text-align: center; border-radius: 5px; border: 1px solid #ddd;">
+                        
+                        <button class="btn add-to-cart btn-cart-action" 
+                                value="{{ product.id }}" 
+                                data-name="{{ product.name }}"
+                                style="flex-grow: 1;">
+                            Add to Cart
+                        </button>
+                    </div>
+
+                    <a href="{% url 'product_detail' product.pk %}" class="btn-details-link">
+                        View Details
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-category-msg">
+                <p>No products found in this category.</p>
+                <a href="{% url 'home' %}">Back to All Products</a>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

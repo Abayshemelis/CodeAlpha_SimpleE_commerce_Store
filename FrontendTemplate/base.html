@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethio Marketing Store</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="cart-toast" class="toast-hidden">Item added to cart! 🛒</div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-brand">
+                <a href="{% url 'home' %}" class="nav-link-white">Ethio Marketing</a>
+            </h1>
+
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <form method="GET" action="{% url 'home' %}" class="navbar-search-form">
+                <input type="text" name="search" placeholder="Search products..." value="{{ request.GET.search|default:'' }}">
+                <button type="submit" class="search-btn">🔍</button>
+            </form>
+
+            <ul class="nav-links" id="nav-list">
+                <li><a href="{% url 'home' %}" class="nav-link-white">Home</a></li>
+                <li><a href="{% url 'contact' %}" class="nav-link-white">Contact</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}" class="nav-link-white">Logout</a></li>
+                    <li class="nav-item">
+                        <span class="nav-link-white" style="font-weight: bold; color: #ffcc00;">
+                            <i class="fas fa-user"></i> {{ user.username }}
+                        </span>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="nav-link-white">Login</a></li>
+                {% endif %}
+
+                <li>
+                    <a href="{% url 'cart_summary' %}" class="nav-link-white cart-nav-link">
+                        <i class="fas fa-shopping-cart"></i> Cart (<span id="cart_count">{{ cart|length }}</span>)
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="padding: 15px; margin-bottom: 20px; border: 1px solid transparent; border-radius: 4px; color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <main class="main-content-container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h3>Ethio Marketing Store</h3>
+                <p>Your one-stop shop for high-quality products. Quality you can trust, delivered to your door.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Hawassa, Techno campus</p>
+                <p><i class="fas fa-phone-alt"></i> +251 909861075</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:abayshemelisshiferaw@gmail.com" style="color: white;">abayshemelisshiferaw@gmail.com</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <ul class="footer-social-links" style="list-style: none; padding: 0;">
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ethio Marketing Store. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

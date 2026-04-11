@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="container">
+        <div class="dashboard-header mb-4">
+            <h2 class="welcome-text">Welcome back, <span>{{ user.username }}!</span> 👋</h2>
+            <p class="subtitle text-muted">Here is what's happening with your account today.</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="dash-card profile-card text-center mb-4">
+                    <div class="avatar-wrapper">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h4 class="user-name">{{ user.get_full_name|default:user.username }}</h4>
+                    <p class="user-email text-muted">{{ user.email }}</p>
+                    
+                    <div class="action-buttons mt-4">
+                        <a href="{% url 'home' %}" class="btn btn-primary-dash w-100 mb-2">
+                            <i class="fas fa-shopping-bag me-2"></i> Shop More
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn btn-logout-dash w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dash-card stats-card">
+                    <h5 class="card-title-dash">Account Summary</h5>
+                    <ul class="stats-list">
+                        <li><span>Joined:</span> <strong>{{ user.date_joined|date:"M Y" }}</strong></li>
+                        <li><span>Total Orders:</span> <strong>{{ orders.count }}</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="dash-card order-card">
+                    <div class="card-header-dash mb-3">
+                        <h5 class="mb-0">Your Recent Orders</h5>
+                    </div>
+                    <div class="card-body-dash">
+                        {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td><strong>#{{ order.id }}</strong></td>
+                                        <td>{{ order.date_ordered|date:"M d, Y" }}</td>
+                                        <td>${{ order.amount_paid }}</td>
+                                        <td><span class="status-badge success">Completed</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="empty-state text-center py-5">
+                            <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No orders yet. Let's find something great!</p>
+                            <a href="{% url 'home' %}" class="btn btn-primary-dash">Browse Products</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

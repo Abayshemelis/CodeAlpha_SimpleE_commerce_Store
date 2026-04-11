@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="contact-container">
+    <h2 class="contact-title">Contact Us</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 15px; background-color: #d4edda; color: #155724; border-radius: 5px; margin-bottom: 20px; text-align: center;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="contact-grid">
+        <div class="contact-info">
+            <h3>Visit Our Store</h3>
+            <p><i class="fas fa-map-marker-alt icon-red"></i> <strong>Address:</strong> Hawassa, Ethiopia</p>
+            <p><i class="fas fa-phone-alt icon-green"></i> <strong>Phone:</strong> +251 909861075</p>
+            <p><i class="fas fa-envelope icon-blue"></i> <strong>Email:</strong> 
+                <a href="mailto:abayshemelisshiferaw@gmail.com" class="email-link">abayshemelisshiferaw@gmail.com</a>
+            </p>
+            <p><i class="fas fa-clock icon-yellow"></i> <strong>Hours:</strong> Mon - Sat: 9:00 AM - 8:00 PM</p>
+
+            <hr class="contact-divider">
+
+            <h3>Connect with Us</h3>
+            <div class="social-wrapper">
+                <div class="social-row">
+                    <i class="fab fa-instagram ig-color"></i>
+                    <span class="label">Instagram:</span>
+                    <a href="https://ig.me/m/yourusername" target="_blank" class="chat-btn">Message Us</a>
+                </div>
+
+                <div class="social-row">
+                    <i class="fab fa-telegram tg-color"></i>
+                    <span class="label">Telegram:</span>
+                    <a href="https://t.me/Unique1075" target="_blank" class="chat-btn">Contact Us</a>
+                </div>
+
+                <div class="social-row">
+                    <i class="fab fa-linkedin ln-color"></i>
+                    <span class="label">LinkedIn:</span>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank" class="chat-btn">Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-form-box">
+            <h3>Send us a Message</h3>
+            <form action="{% url 'contact' %}" method="POST" class="message-form">
+                {% csrf_token %}
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+                <textarea name="message" placeholder="How can we help you?" rows="5" required></textarea>
+                <button type="submit" class="btn-send">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+   <div class="map-wrapper">
+    <iframe 
+        class="google-map"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31671.24838644453!2d38.45520845!3d7.0562301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17b1456209ef792d%3A0x6295f702844855d0!2sHawassa!5e0!3m2!1sen!2set!4v1710000000000!5m2!1sen!2set" 
+        width="100%" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy">
+    </iframe>
+</div>
+</div>
+{% endblock %}
