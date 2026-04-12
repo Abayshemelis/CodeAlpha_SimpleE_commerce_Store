@@ -1124,6 +1124,144 @@ body {
 }
 
 /* ============================================================
+   login & signup page styling
+   ============================================================ 
+*/
+.auth-page-wrapper {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f4f7f6;
+}
+
+.auth-split-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    min-height: 600px;
+}
+
+.auth-visual-side {
+    flex: 1;
+    background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)),
+        url('/static/img/shopping2.jpg');
+
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 40px;
+    text-align: center;
+}
+
+.visual-overlay h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.visual-overlay p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.auth-form-side {
+    flex: 1;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.django-form-styled .form-group {
+    margin-bottom: 20px;
+}
+
+.django-form-styled label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.django-form-styled input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.django-form-styled input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.btn-auth-submit {
+    width: 100%;
+    padding: 14px;
+    background: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-auth-submit:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+}
+
+.auth-footer-text {
+    margin-top: 25px;
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 0.95rem;
+}
+
+.signup-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+.auth-alert {
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    background-color: #fdeaea;
+    color: #e74c3c;
+    border: 1px solid #fad7d7;
+}
+
+/* ============================================================
    RESPONSIVE DESIGN 
    ============================================================ */
 

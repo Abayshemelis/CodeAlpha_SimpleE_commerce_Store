@@ -2,36 +2,48 @@
 
 {% block content %}
 <div class="auth-page-wrapper">
-    <div class="auth-card shadow">
-        <h2 class="auth-title">Login to Your Account</h2>
-        
-        <form method="POST" action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
-            {% csrf_token %}
-            
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="auth-alert alert-danger">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
+    <div class="auth-split-container shadow">
 
-            <div class="django-form-styled">
-                {% for field in form %}
+        <div class="auth-visual-side">
+            <div class="visual-overlay">
+                <h1>Ethio Marketing</h1>
+                <p>Welcome back! Securely access your account.</p>
+            </div>
+        </div>
+
+        <div class="auth-form-side">
+            <h2 class="auth-title">Login</h2>
+
+            <form method="POST"
+                action="{% url 'login' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
+                {% csrf_token %}
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="auth-alert alert-danger">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="django-form-styled">
+                    {% for field in form %}
                     <div class="form-group mb-3">
                         <label class="form-label">{{ field.label }}</label>
                         {{ field }}
                         {% if field.errors %}
-                            <small class="text-danger">{{ field.errors|striptags }}</small>
+                        <small class="text-danger">{{ field.errors|striptags }}</small>
                         {% endif %}
                     </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
 
-            <button type="submit" class="btn-auth-submit">Login Now</button>
-        </form>
-        
-        <p class="auth-footer-text">
-            Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up here</a>
-        </p>
+                <button type="submit" class="btn-auth-submit">Login Now</button>
+            </form>
+
+            <p class="auth-footer-text">
+                Don't have an account? <a href="{% url 'register' %}" class="signup-link">Sign up</a>
+            </p>
+        </div>
+
     </div>
 </div>
 {% endblock %}
