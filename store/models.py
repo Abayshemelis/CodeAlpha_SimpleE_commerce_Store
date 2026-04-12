@@ -30,7 +30,6 @@ class Product(models.Model):
         blank=True
     )
     description = models.TextField()
-    # Added default=0.00 to prevent NoneType errors
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     stock = models.IntegerField(default=0)
@@ -50,6 +49,8 @@ class Product(models.Model):
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
+    # ADDED: Phone number field for contact form
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -71,6 +72,8 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     full_name = models.CharField(max_length=250)
     email = models.EmailField(max_length=250)
+    # ADDED: phone_number field to fix the 'unexpected keyword argument' error
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     shipping_address = models.TextField(max_length=1000)
     shipping_city = models.CharField(max_length=100, default="Hawassa")
     
@@ -94,9 +97,5 @@ class OrderItem(models.Model):
 
     @property
     def total_price(self):
-        """
-        Calculates the subtotal for this item. 
-        Safety check: If price is None, it defaults to 0 to prevent crashes.
-        """
         safe_price = self.price if self.price is not None else Decimal('0.00')
         return safe_price * self.quantity
