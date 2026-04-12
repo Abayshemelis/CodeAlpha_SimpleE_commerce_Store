@@ -1,29 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'base_auth.html' %}
 
 {% block content %}
 <div class="auth-page-wrapper">
-    <div class="auth-card shadow">
-        <h2 class="text-center mb-4">Create Your Account</h2>
-        
-        <form method="POST" action="{% url 'register' %}">
-            {% csrf_token %}
-            
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-danger">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
+    <div class="auth-split-container shadow">
 
-            <div class="django-form-styled">
-                {{ form.as_p }}
+        <div class="auth-visual-side"
+            style="background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url('/static/img/shopping4.jpg');">
+            <div class="visual-overlay">
+                <h1>Join Ethio Marketing</h1>
+                <p>Create an account to start your shopping journey with us.</p>
             </div>
+        </div>
 
-            <button type="submit" class="btn-auth-submit">Create Account</button>
-        </form>
-        
-        <p class="mt-4 text-center">
-            Already have an account? <a href="{% url 'login' %}" class="signup-link">Login here</a>
-        </p>
+        <div class="auth-form-side">
+            <h2 class="auth-title">Create Your Account</h2>
+
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="auth-alert alert-danger">{{ message }}</div>
+                {% endfor %}
+                {% endif %}
+
+                <div class="django-form-styled">
+                    {{ form.as_p }}
+                </div>
+
+                <button type="submit" class="btn-auth-submit">Create Account</button>
+            </form>
+
+            <p class="auth-footer-text">
+                Already have an account? <a href="{% url 'login' %}" class="signup-link">Login here</a>
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}
